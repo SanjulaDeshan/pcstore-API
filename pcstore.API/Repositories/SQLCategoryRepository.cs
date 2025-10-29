@@ -29,5 +29,20 @@ namespace pcstore.API.Repositories
 		{
 			return await dbContext.Categories.ToListAsync();
 		}
+
+		public async Task<Category?> UpdateAsync(Guid id, Category category)
+		{
+			var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (existingCategory == null)
+			{
+				return null;
+			}
+
+			existingCategory.Name = category.Name;
+
+			await dbContext.SaveChangesAsync();
+			return existingCategory;
+		}
 	}
 }

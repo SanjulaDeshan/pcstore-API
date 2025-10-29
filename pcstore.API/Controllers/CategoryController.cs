@@ -59,5 +59,21 @@ namespace pcstore.API.Controllers
 
 			return CreatedAtAction(nameof(GetById), new { id = categoryDto.Id }, categoryDto);
 		}
-    }
+
+		[HttpPut]
+		[Route("{id:Guid}")]
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateCategoryRequestDTO updateCategoryRequestDTO)
+		{
+			var categoryDomainModel = mapper.Map<Category>(updateCategoryRequestDTO);
+
+			categoryDomainModel = await categoryRepository.UpdateAsync(id, categoryDomainModel);
+
+			if (categoryDomainModel == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(mapper.Map<CategoryDto>(categoryDomainModel));
+		}
+	}
 }
