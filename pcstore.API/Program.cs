@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using pcstore.API.Data;
+using pcstore.API.Mappings;
+using pcstore.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<PCStoreDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("PCStoreConnectionString")));
+
+builder.Services.AddScoped<ICategoryRepository, SQLCategoryRepository>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 var app = builder.Build();
 
