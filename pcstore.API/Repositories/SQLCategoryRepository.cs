@@ -24,5 +24,10 @@ namespace pcstore.API.Repositories
 		{
 			return await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
 		}
+
+		public async Task<List<Category>> GetAllAsync()
+		{
+			return await dbContext.Categories.ToListAsync();
+		}
 	}
 }

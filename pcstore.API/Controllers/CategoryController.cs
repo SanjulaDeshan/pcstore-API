@@ -24,6 +24,14 @@ namespace pcstore.API.Controllers
 		}
 
 		[HttpGet]
+		public async Task<IActionResult> GetAll()
+		{
+			var categoryDomain = await categoryRepository.GetAllAsync();
+
+			return Ok(mapper.Map<List<CategoryDto>>(categoryDomain));
+		}
+
+		[HttpGet]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> GetById([FromRoute] Guid id)
 		{
