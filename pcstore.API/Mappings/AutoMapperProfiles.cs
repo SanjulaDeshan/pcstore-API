@@ -14,6 +14,7 @@ namespace pcstore.API.Mappings
 
 			CreateMap<Brand, BrandDto>().ReverseMap();
 			CreateMap<AddBrandRequestDto, Brand>().ReverseMap();
+			CreateMap<UpdateBrandRequestDTO, Brand>().ReverseMap();
 		}
 	}
 }

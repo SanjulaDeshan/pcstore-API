@@ -43,5 +43,20 @@ namespace pcstore.API.Repositories
 			await dbContext.SaveChangesAsync();
 			return existingBrand;
 		}
+
+		public async Task<Brand?> UpdateAsync(Guid id, Brand brand) 
+		{
+			var existingBrand = await dbContext.Brands.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (existingBrand == null) 
+			{
+				return null;
+			}
+
+			existingBrand.Name = brand.Name;
+
+			await dbContext.SaveChangesAsync();
+			return existingBrand;
+		}
 	}
 }

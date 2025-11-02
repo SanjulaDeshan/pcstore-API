@@ -67,5 +67,21 @@ namespace pcstore.API.Controllers
 
 			return Ok(mapper.Map<BrandDto>(brandDomainModel));
 		}
+
+		[HttpPut]
+		[Route("{id:Guid}")]
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateBrandRequestDTO updateBrandRequestDTO)
+		{
+			var brandDomainModel = mapper.Map<Brand>(updateBrandRequestDTO);
+
+			brandDomainModel = await brandRepository.UpdateAsync(id, brandDomainModel);
+
+			if (brandDomainModel == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(mapper.Map<BrandDto>(brandDomainModel));
+		}
 	}
 }
