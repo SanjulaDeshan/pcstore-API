@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pcstore.API.Data;
 
@@ -11,9 +12,11 @@ using pcstore.API.Data;
 namespace pcstore.API.Migrations
 {
     [DbContext(typeof(PCStoreDbContext))]
-    partial class PCStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251102193120_AddUniqueConstraintToBrandName")]
+    partial class AddUniqueConstraintToBrandName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

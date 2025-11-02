@@ -14,5 +14,15 @@ namespace pcstore.API.Data
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemSpecification> ItemsSpecification { get; set; }
-    }
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<Brand>()
+				.HasIndex(b => b.Name)
+				.IsUnique();
+		}
+
+	}
 }
