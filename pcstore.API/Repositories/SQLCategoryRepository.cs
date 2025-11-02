@@ -44,5 +44,19 @@ namespace pcstore.API.Repositories
 			await dbContext.SaveChangesAsync();
 			return existingCategory;
 		}
+
+		public async Task<Category?> DeleteAsync(Guid id)
+		{
+			var existingCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (existingCategory == null)
+			{
+				return null;
+			}
+
+			dbContext.Categories.Remove(existingCategory);
+			await dbContext.SaveChangesAsync();
+			return existingCategory;
+		}
 	}
 }

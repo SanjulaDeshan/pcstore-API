@@ -75,5 +75,19 @@ namespace pcstore.API.Controllers
 
 			return Ok(mapper.Map<CategoryDto>(categoryDomainModel));
 		}
+
+		[HttpDelete]
+		[Route("{id:Guid}")]
+		public async Task<IActionResult> Delete([FromRoute] Guid id)
+		{
+			var categoryDomainModel = await categoryRepository.DeleteAsync(id);
+
+			if (categoryDomainModel == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(mapper.Map<CategoryDto>(categoryDomainModel));
+		}
 	}
 }

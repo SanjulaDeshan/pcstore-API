@@ -8,5 +8,6 @@ namespace pcstore.API.Repositories
 		Task<Category?> GetByIdAsync(Guid id);
 		Task<Category> CreateAsync(Category category);
 		Task<Category?> UpdateAsync(Guid id, Category category);
+		Task<Category?> DeleteAsync(Guid id);
 	}
 }
