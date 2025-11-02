@@ -79,6 +79,13 @@ namespace pcstore.API.Controllers
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateBrandRequestDTO updateBrandRequestDTO)
 		{
+			// Check for duplicate name
+			var allBrands = await brandRepository.GetAllAsync();
+			if (allBrands.Any(x => x.Name.Equals(updateBrandRequestDTO.Name, StringComparison.OrdinalIgnoreCase) && x.Id != id))
+			{
+				return BadRequest("Brand name already exists.");
+			}
+
 			var brandDomainModel = mapper.Map<Brand>(updateBrandRequestDTO);
 
 			brandDomainModel = await brandRepository.UpdateAsync(id, brandDomainModel);
