@@ -16,6 +16,7 @@ builder.Services.AddDbContext<PCStoreDbContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("PCStoreConnectionString")));
 
 builder.Services.AddScoped<ICategoryRepository, SQLCategoryRepository>();
+builder.Services.AddScoped<IBrandRepository, SQLBrandRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
