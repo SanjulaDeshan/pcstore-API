@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using pcstore.API.Models.Domain;
 using pcstore.API.Models.DTO;
 using pcstore.API.Repositories;
 
@@ -39,6 +40,18 @@ namespace pcstore.API.Controllers
 			}
 
 			return Ok(mapper.Map<CategoryDto>(brandDomain));
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Create([FromBody] AddBrandRequestDto addBrandRequestDto)
+		{
+			var brandDomainModel = mapper.Map<Brand>(addBrandRequestDto);
+
+			brandDomainModel = await brandRepository.CreateAsync(brandDomainModel);
+
+			var brandDto = mapper.Map<BrandDto>(brandDomainModel);
+
+			return CreatedAtAction(nameof(GetById), new { id = brandDto.Id }, brandDto);
 		}
 	}
 }

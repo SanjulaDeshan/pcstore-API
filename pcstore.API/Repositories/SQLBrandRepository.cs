@@ -22,5 +22,12 @@ namespace pcstore.API.Repositories
 		{
 			return await dbContext.Brands.FirstOrDefaultAsync(x => x.Id == id);
 		}
+
+		public async Task<Brand> CreateAsync(Brand brand)
+		{
+			await dbContext.Brands.AddAsync(brand);
+			await dbContext.SaveChangesAsync();
+			return brand;
+		}
 	}
 }
