@@ -29,5 +29,19 @@ namespace pcstore.API.Repositories
 			await dbContext.SaveChangesAsync();
 			return brand;
 		}
+
+		public async Task<Brand?> DeleteAsync(Guid id)
+		{
+			var existingBrand = await dbContext.Brands.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (existingBrand == null)
+			{
+				return null;
+			}
+
+			dbContext.Brands.Remove(existingBrand);
+			await dbContext.SaveChangesAsync();
+			return existingBrand;
+		}
 	}
 }

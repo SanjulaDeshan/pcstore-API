@@ -39,7 +39,7 @@ namespace pcstore.API.Controllers
 				return NotFound();
 			}
 
-			return Ok(mapper.Map<CategoryDto>(brandDomain));
+			return Ok(mapper.Map<BrandDto>(brandDomain));
 		}
 
 		[HttpPost]
@@ -52,6 +52,20 @@ namespace pcstore.API.Controllers
 			var brandDto = mapper.Map<BrandDto>(brandDomainModel);
 
 			return CreatedAtAction(nameof(GetById), new { id = brandDto.Id }, brandDto);
+		}
+
+		[HttpDelete]
+		[Route("{id:Guid}")]
+		public async Task<IActionResult> Delete([FromRoute] Guid id)
+		{
+			var brandDomainModel = await brandRepository.DeleteAsync(id);
+
+			if (brandDomainModel == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(mapper.Map<BrandDto>(brandDomainModel));
 		}
 	}
 }
