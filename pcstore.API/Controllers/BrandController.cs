@@ -45,6 +45,13 @@ namespace pcstore.API.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] AddBrandRequestDto addBrandRequestDto)
 		{
+			// Check for existing name
+			var allBrands = await brandRepository.GetAllAsync();
+			if (allBrands.Any(x => x.Name.Equals(addBrandRequestDto.Name, StringComparison.OrdinalIgnoreCase)))
+			{
+				return BadRequest("Brand name already exists.");
+			}
+
 			var brandDomainModel = mapper.Map<Brand>(addBrandRequestDto);
 
 			brandDomainModel = await brandRepository.CreateAsync(brandDomainModel);
