@@ -21,6 +21,8 @@ namespace pcstore.API.Mappings
 			CreateMap<UpdateItemRequestDTO, Item>().ReverseMap();
 
 			CreateMap<ItemSpecification, ItemSpecificationDto>().ReverseMap();
+			CreateMap<AddItemSpecificationRequestDto, ItemSpecification>().ReverseMap();
+
 		}
 	}
 }
