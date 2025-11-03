@@ -1,0 +1,11 @@
+﻿namespace pcstore.API.Models.DTO
+{
+	public class UpdateItemRequestDTO
+	{
+		public string Name { get; set; }
+		public Guid CategoryId { get; set; }
+		public Guid BrandId { get; set; }
+		public string Warranty { get; set; }
+		public string Price { get; set; }
+	}
+}
