@@ -6,5 +6,6 @@ namespace pcstore.API.Repositories
 	{
 		Task<List<Item>> GetAllAsync();
 		Task<Item?> GetByIdAsync(Guid id);
+		Task<Item> CreateAsync(Item item);
 	}
 }
