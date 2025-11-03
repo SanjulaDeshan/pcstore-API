@@ -26,5 +26,19 @@ namespace pcstore.API.Controllers
 
 			return Ok(mapper.Map<List<ItemSpecificationDto>>(itemSpecificationDomain));
 		}
+
+		[HttpGet]
+		[Route("{id:Guid}")]
+		public async Task<IActionResult> GetById([FromRoute] Guid id)
+		{
+			var itemSpecificationDomain = await itemSpecificationRepository.GetByIdAsync(id);
+
+			if (itemSpecificationDomain == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(mapper.Map<ItemSpecificationDto>(itemSpecificationDomain));
+		}
 	}
 }

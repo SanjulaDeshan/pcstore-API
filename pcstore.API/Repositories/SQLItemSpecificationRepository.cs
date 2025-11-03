@@ -17,5 +17,10 @@ namespace pcstore.API.Repositories
 		{
 			return await dbContext.ItemsSpecification.ToListAsync();
 		}
+
+		public async Task<ItemSpecification?> GetByIdAsync(Guid id)
+		{
+			return await dbContext.ItemsSpecification.FirstOrDefaultAsync(x => x.Id == id);
+		}
 	}
 }
