@@ -73,5 +73,27 @@ namespace pcstore.API.Controllers
 
 			return Ok(mapper.Map<ItemSpecificationDto>(itemSpecificationDomainModel));
 		}
+
+		[HttpPut]
+		[Route("{id:Guid}")]
+		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateItemSpecificationRequestDTO updateItemSpecificationRequestDTO)
+		{
+			var allItemSpecification = await itemSpecificationRepository.GetAllAsync();
+			if (allItemSpecification.Any(x => x.Name.Equals(updateItemSpecificationRequestDTO.Name, StringComparison.OrdinalIgnoreCase) && x.Id != id))
+			{
+				return BadRequest("Item Specification name already exists.");
+			}
+
+			var itemSpecificationDomainModel = mapper.Map<ItemSpecification>(updateItemSpecificationRequestDTO);
+
+			itemSpecificationDomainModel = await itemSpecificationRepository.UpdateAsync(id, itemSpecificationDomainModel);
+
+			if (itemSpecificationDomainModel == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(mapper.Map<ItemSpecificationDto>(itemSpecificationDomainModel));
+		}
 	}
 }

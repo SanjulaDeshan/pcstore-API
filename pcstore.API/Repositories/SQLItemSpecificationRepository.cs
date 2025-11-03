@@ -43,5 +43,22 @@ namespace pcstore.API.Repositories
 			await dbContext.SaveChangesAsync();
 			return existingItemSpecification;
 		}
+
+		public async Task<ItemSpecification?> UpdateAsync(Guid id, ItemSpecification itemSpecification)
+		{
+			var existingItemSpecification = await dbContext.ItemsSpecification.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (existingItemSpecification == null)
+			{
+				return null;
+			}
+
+			existingItemSpecification.ItemId = itemSpecification.ItemId;
+			existingItemSpecification.Name = itemSpecification.Name;
+			existingItemSpecification.Value = itemSpecification.Value;
+
+			await dbContext.SaveChangesAsync();
+			return existingItemSpecification;
+		}
 	}
 }
