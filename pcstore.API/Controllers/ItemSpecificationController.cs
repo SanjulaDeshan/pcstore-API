@@ -59,5 +59,19 @@ namespace pcstore.API.Controllers
 
 			return CreatedAtAction(nameof(GetById), new { id = itemSpecificationDto.Id }, itemSpecificationDto);
 		}
+
+		[HttpDelete]
+		[Route("{id:Guid}")]
+		public async Task<IActionResult> Delete([FromRoute] Guid id)
+		{
+			var itemSpecificationDomainModel = await itemSpecificationRepository.DeleteAsync(id);
+
+			if (itemSpecificationDomainModel == null)
+			{
+				return NotFound();
+			}
+
+			return Ok(mapper.Map<ItemSpecificationDto>(itemSpecificationDomainModel));
+		}
 	}
 }

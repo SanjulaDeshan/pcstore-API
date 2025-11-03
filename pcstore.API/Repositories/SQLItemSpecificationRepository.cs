@@ -29,5 +29,19 @@ namespace pcstore.API.Repositories
 			await dbContext.SaveChangesAsync();
 			return itemSpecification;
 		}
+
+		public async Task<ItemSpecification?> DeleteAsync(Guid id)
+		{
+			var existingItemSpecification = await dbContext.ItemsSpecification.FirstOrDefaultAsync(x => x.Id == id);
+
+			if (existingItemSpecification == null)
+			{
+				return null;
+			}
+
+			dbContext.ItemsSpecification.Remove(existingItemSpecification);
+			await dbContext.SaveChangesAsync();
+			return existingItemSpecification;
+		}
 	}
 }
