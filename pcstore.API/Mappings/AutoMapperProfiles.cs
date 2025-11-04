@@ -23,6 +23,16 @@ namespace pcstore.API.Mappings
 			CreateMap<ItemSpecification, ItemSpecificationDto>().ReverseMap();
 			CreateMap<AddItemSpecificationRequestDto, ItemSpecification>().ReverseMap();
 			CreateMap<UpdateItemSpecificationRequestDTO, ItemSpecification>().ReverseMap();
+
+			//CreateMap<Item, ItemDetailedDto>()
+			//	.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
+			//	.ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Brand))
+			//	.ForMember(dest => dest.ItemSpecifications, opt => opt.Ignore());
+			CreateMap<Item, ItemDetailedDto>()
+				.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
+				.ForMember(dest => dest.Brand, opt => opt.MapFrom(src => src.Brand))
+				.ForMember(dest => dest.ItemSpecifications, opt => opt.MapFrom(src => src.ItemSpecification));
+
 		}
 	}
 }

@@ -13,11 +13,17 @@ namespace pcstore.API.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Item> Items { get; set; }
-        public DbSet<ItemSpecification> ItemsSpecification { get; set; }
+        public DbSet<ItemSpecification> ItemsSpecifications { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
+
+			modelBuilder.Entity<Item>()
+				.HasMany(i => i.ItemSpecification)
+				.WithOne(s => s.Item)
+				.HasForeignKey(s => s.ItemId)
+				.OnDelete(DeleteBehavior.Cascade);
 
 			modelBuilder.Entity<Brand>()
 				.HasIndex(b => b.Name)

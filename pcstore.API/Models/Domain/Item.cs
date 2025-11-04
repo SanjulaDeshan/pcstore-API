@@ -13,5 +13,9 @@
 		// Navigation properties
 		public Category Category { get; set; }
 		public Brand Brand { get; set; }
+
+		// Added: one-to-many relationship
+		public ICollection<ItemSpecification> ItemSpecification { get; set; } = new List<ItemSpecification>();
+
 	}
 }

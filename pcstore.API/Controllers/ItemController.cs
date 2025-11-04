@@ -28,6 +28,25 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<List<ItemDto>>(itemDomain));
 		}
 
+		[HttpGet("details")]
+		public async Task<IActionResult> GetAllWithDetails()
+		{
+			var items = await itemRepository.GetAllWithDetailsAsync();
+			var itemDtos = mapper.Map<List<ItemDetailedDto>>(items);
+			return Ok(itemDtos);
+		}
+
+		[HttpGet("category/{categoryId:Guid}")]
+		public async Task<IActionResult> GetAllByCategoryId([FromRoute] Guid categoryId)
+		{
+			var items = await itemRepository.GetAllByCategoryIdAsync(categoryId);
+			if (items == null || !items.Any())
+				return NotFound("No items found for the given category.");
+
+			var itemDtos = mapper.Map<List<ItemDetailedDto>>(items);
+			return Ok(itemDtos);
+		}
+
 		[HttpGet]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> GetById([FromRoute] Guid id)

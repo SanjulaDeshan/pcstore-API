@@ -15,38 +15,38 @@ namespace pcstore.API.Repositories
 
 		public async Task<List<ItemSpecification>> GetAllAsync()
 		{
-			return await dbContext.ItemsSpecification.ToListAsync();
+			return await dbContext.ItemsSpecifications.ToListAsync();
 		}
 
 		public async Task<ItemSpecification?> GetByIdAsync(Guid id)
 		{
-			return await dbContext.ItemsSpecification.FirstOrDefaultAsync(x => x.Id == id);
+			return await dbContext.ItemsSpecifications.FirstOrDefaultAsync(x => x.Id == id);
 		}
 
 		public async Task<ItemSpecification> CreateAsync(ItemSpecification itemSpecification)
 		{
-			await dbContext.ItemsSpecification.AddAsync(itemSpecification);
+			await dbContext.ItemsSpecifications.AddAsync(itemSpecification);
 			await dbContext.SaveChangesAsync();
 			return itemSpecification;
 		}
 
 		public async Task<ItemSpecification?> DeleteAsync(Guid id)
 		{
-			var existingItemSpecification = await dbContext.ItemsSpecification.FirstOrDefaultAsync(x => x.Id == id);
+			var existingItemSpecification = await dbContext.ItemsSpecifications.FirstOrDefaultAsync(x => x.Id == id);
 
 			if (existingItemSpecification == null)
 			{
 				return null;
 			}
 
-			dbContext.ItemsSpecification.Remove(existingItemSpecification);
+			dbContext.ItemsSpecifications.Remove(existingItemSpecification);
 			await dbContext.SaveChangesAsync();
 			return existingItemSpecification;
 		}
 
 		public async Task<ItemSpecification?> UpdateAsync(Guid id, ItemSpecification itemSpecification)
 		{
-			var existingItemSpecification = await dbContext.ItemsSpecification.FirstOrDefaultAsync(x => x.Id == id);
+			var existingItemSpecification = await dbContext.ItemsSpecifications.FirstOrDefaultAsync(x => x.Id == id);
 
 			if (existingItemSpecification == null)
 			{

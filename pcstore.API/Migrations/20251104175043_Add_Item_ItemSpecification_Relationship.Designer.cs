@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pcstore.API.Data;
 
@@ -11,9 +12,11 @@ using pcstore.API.Data;
 namespace pcstore.API.Migrations
 {
     [DbContext(typeof(PCStoreDbContext))]
-    partial class PCStoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251104175043_Add_Item_ItemSpecification_Relationship")]
+    partial class Add_Item_ItemSpecification_Relationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +115,7 @@ namespace pcstore.API.Migrations
 
                     b.HasIndex("ItemId");
 
-                    b.ToTable("ItemsSpecifications");
+                    b.ToTable("ItemsSpecification");
                 });
 
             modelBuilder.Entity("pcstore.API.Models.Domain.Item", b =>
