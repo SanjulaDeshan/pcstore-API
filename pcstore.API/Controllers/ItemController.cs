@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using pcstore.API.Models.Domain;
@@ -20,6 +21,7 @@ namespace pcstore.API.Controllers
 			this.itemRepository = itemRepository;
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> GetAll()
 		{
@@ -28,6 +30,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<List<ItemDto>>(itemDomain));
 		}
 
+		[AllowAnonymous]
 		[HttpGet("details")]
 		public async Task<IActionResult> GetAllWithDetails()
 		{
@@ -36,6 +39,7 @@ namespace pcstore.API.Controllers
 			return Ok(itemDtos);
 		}
 
+		[AllowAnonymous]
 		[HttpGet("category/{categoryId:Guid}")]
 		public async Task<IActionResult> GetAllByCategoryId([FromRoute] Guid categoryId)
 		{
@@ -47,6 +51,7 @@ namespace pcstore.API.Controllers
 			return Ok(itemDtos);
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> GetById([FromRoute] Guid id)
@@ -61,6 +66,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<ItemDto>(itemDomain));
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] AddItemRequestDto addItemRequestDto)
 		{
@@ -79,6 +85,7 @@ namespace pcstore.API.Controllers
 			return CreatedAtAction(nameof(GetById), new { id = itemDto.Id }, itemDto);
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpDelete]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
@@ -93,6 +100,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<ItemDto>(itemDomainModel));
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPut]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateItemRequestDTO updateItemRequestDTO)

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using pcstore.API.Models.Domain;
@@ -20,6 +21,7 @@ namespace pcstore.API.Controllers
 			this.brandRepository = brandRepository;
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		public async Task<IActionResult> GetAll()
 		{
@@ -28,6 +30,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<List<BrandDto>>(brandDomain));
 		}
 
+		[AllowAnonymous]
 		[HttpGet]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> GetById([FromRoute] Guid id)
@@ -42,6 +45,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<BrandDto>(brandDomain));
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] AddBrandRequestDto addBrandRequestDto)
 		{
@@ -61,6 +65,7 @@ namespace pcstore.API.Controllers
 			return CreatedAtAction(nameof(GetById), new { id = brandDto.Id }, brandDto);
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpDelete]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
@@ -75,6 +80,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<BrandDto>(brandDomainModel));
 		}
 
+		[Authorize(Roles = "Admin")]
 		[HttpPut]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateBrandRequestDTO updateBrandRequestDTO)
