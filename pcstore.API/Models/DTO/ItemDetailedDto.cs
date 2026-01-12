@@ -8,7 +8,9 @@
 		public BrandDto Brand { get; set; }
 		public string Warranty { get; set; }
 		public string Price { get; set; }
-		public DateTime CreatedAt { get; set; }
+        public string? ImageUrl { get; set; }
+        public string Availability { get; set; }
+        public DateTime CreatedAt { get; set; }
 
 		public List<ItemSpecificationDto> ItemSpecifications { get; set; }
 	}

@@ -41,14 +41,27 @@ namespace pcstore.API.Controllers
 
 		[AllowAnonymous]
 		[HttpGet("category/{categoryId:Guid}")]
-		public async Task<IActionResult> GetAllByCategoryId([FromRoute] Guid categoryId)
+		public async Task<IActionResult> GetAllByCategoryId(
+            [FromRoute] Guid categoryId,
+			[FromQuery] int pageNumber = 1,
+			[FromQuery] int pageSize = 12,
+			[FromQuery] string? brand = null,
+			[FromQuery] decimal? minPrice = null,
+			[FromQuery] decimal? maxPrice = null)
 		{
-			var items = await itemRepository.GetAllByCategoryIdAsync(categoryId);
-			if (items == null || !items.Any())
+            var items = await itemRepository.GetAllByCategoryIdAsync(categoryId, pageNumber, pageSize, brand, minPrice, maxPrice);
+            if (items == null || !items.Any())
 				return NotFound("No items found for the given category.");
 
 			var itemDtos = mapper.Map<List<ItemDetailedDto>>(items);
-			return Ok(itemDtos);
+            var totalItems = await itemRepository.GetCountByCategoryIdAsync(categoryId, brand, minPrice, maxPrice);
+            return Ok(new
+            {
+                Data = itemDtos,
+                TotalCount = totalItems,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            });
 		}
 
 		[AllowAnonymous]
@@ -66,7 +79,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<ItemDto>(itemDomain));
 		}
 
-		[Authorize(Roles = "Admin")]
+		//[Authorize(Roles = "Admin")]
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] AddItemRequestDto addItemRequestDto)
 		{
@@ -85,7 +98,7 @@ namespace pcstore.API.Controllers
 			return CreatedAtAction(nameof(GetById), new { id = itemDto.Id }, itemDto);
 		}
 
-		[Authorize(Roles = "Admin")]
+		//[Authorize(Roles = "Admin")]
 		[HttpDelete]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
@@ -100,7 +113,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<ItemDto>(itemDomainModel));
 		}
 
-		[Authorize(Roles = "Admin")]
+		//[Authorize(Roles = "Admin")]
 		[HttpPut]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateItemRequestDTO updateItemRequestDTO)
