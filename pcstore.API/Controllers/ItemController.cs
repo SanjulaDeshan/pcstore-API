@@ -47,18 +47,27 @@ namespace pcstore.API.Controllers
 			[FromQuery] int pageSize = 12,
 			[FromQuery] string? brand = null,
 			[FromQuery] decimal? minPrice = null,
-			[FromQuery] decimal? maxPrice = null)
+			[FromQuery] decimal? maxPrice = null,
+            [FromQuery] string? search = null,
+            [FromQuery] string? availability = null)
 		{
-            var items = await itemRepository.GetAllByCategoryIdAsync(categoryId, pageNumber, pageSize, brand, minPrice, maxPrice);
+            var items = await itemRepository.GetAllByCategoryIdAsync(categoryId, pageNumber, pageSize, brand, minPrice, maxPrice, search, availability);
             if (items == null || !items.Any())
 				return NotFound("No items found for the given category.");
 
 			var itemDtos = mapper.Map<List<ItemDetailedDto>>(items);
-            var totalItems = await itemRepository.GetCountByCategoryIdAsync(categoryId, brand, minPrice, maxPrice);
+            var totalItems = await itemRepository.GetCountByCategoryIdAsync(categoryId, brand, minPrice, maxPrice, search, availability);
+
+            var prices = items.Select(x => decimal.Parse(x.Price.Replace(",", "").Trim()));
+            var categoryMin = prices.Any() ? prices.Min() : 0;
+            var categoryMax = prices.Any() ? prices.Max() : 1000000;
+
             return Ok(new
             {
                 Data = itemDtos,
                 TotalCount = totalItems,
+                CategoryMinPrice = categoryMin,
+                CategoryMaxPrice = categoryMax,
                 PageNumber = pageNumber,
                 PageSize = pageSize
             });

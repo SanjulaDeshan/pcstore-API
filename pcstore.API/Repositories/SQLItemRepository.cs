@@ -27,7 +27,7 @@ namespace pcstore.API.Repositories
 				.ToListAsync();
 		}
 
-        public async Task<List<Item>> GetAllByCategoryIdAsync(Guid categoryId, int pageNumber = 1, int pageSize = 12, string? brand = null, decimal? minPrice = null, decimal? maxPrice = null)
+        public async Task<List<Item>> GetAllByCategoryIdAsync(Guid categoryId, int pageNumber = 1, int pageSize = 12, string? brand = null, decimal? minPrice = null, decimal? maxPrice = null, string? search = null, string? availability = null)
         {
             // 1. Start with the database query (IQueryable)
             var query = dbContext.Items
@@ -41,6 +41,14 @@ namespace pcstore.API.Repositories
             {
                 query = query.Where(x => x.Brand.Name.Contains(brand));
             }
+
+            // 2.1. Filter by Availability (SQL side)
+            if (!string.IsNullOrWhiteSpace(availability))
+                query = query.Where(x => x.Availability.Contains(availability));
+
+            // 2.2 Search (Wildcard search in Name or Brand)
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(x => x.Name.Contains(search) || x.Brand.Name.Contains(search));
 
             // 3. Execution Phase
             // Since Price is a string with commas, we MUST bring the data into memory 
@@ -72,7 +80,7 @@ namespace pcstore.API.Repositories
                 .ToList();
         }
 
-        public async Task<int> GetCountByCategoryIdAsync(Guid categoryId, string? brand = null, decimal? minPrice = null, decimal? maxPrice = null)
+        public async Task<int> GetCountByCategoryIdAsync(Guid categoryId, string? brand = null, decimal? minPrice = null, decimal? maxPrice = null, string? search = null, string? availability = null)
         {
             // 1. Start with the database query
             var query = dbContext.Items
@@ -85,6 +93,14 @@ namespace pcstore.API.Repositories
             {
                 query = query.Where(x => x.Brand.Name.Contains(brand));
             }
+
+            // 2.1. Filter by Availability (SQL side)
+            if (!string.IsNullOrWhiteSpace(availability))
+                query = query.Where(x => x.Availability.Contains(availability));
+
+            // 2.2 Search (Wildcard search in Name or Brand)
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(x => x.Name.Contains(search) || x.Brand.Name.Contains(search));
 
             // 3. Bring to memory to handle the String-to-Decimal price filtering
             var items = await query.ToListAsync();
