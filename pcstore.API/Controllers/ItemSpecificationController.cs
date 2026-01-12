@@ -45,7 +45,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<ItemSpecificationDto>(itemSpecificationDomain));
 		}
 
-		[Authorize(Roles = "Admin")]
+		//[Authorize(Roles = "Admin")]
 		[HttpPost]
 		public async Task<IActionResult> Create([FromBody] AddItemSpecificationRequestDto addItemSpecificationRequestDto)
 		{
@@ -64,7 +64,7 @@ namespace pcstore.API.Controllers
 			return CreatedAtAction(nameof(GetById), new { id = itemSpecificationDto.Id }, itemSpecificationDto);
 		}
 
-		[Authorize(Roles = "Admin")]
+		//[Authorize(Roles = "Admin")]
 		[HttpDelete]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Delete([FromRoute] Guid id)
@@ -79,7 +79,7 @@ namespace pcstore.API.Controllers
 			return Ok(mapper.Map<ItemSpecificationDto>(itemSpecificationDomainModel));
 		}
 
-		[Authorize(Roles = "Admin")]
+		//[Authorize(Roles = "Admin")]
 		[HttpPut]
 		[Route("{id:Guid}")]
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateItemSpecificationRequestDTO updateItemSpecificationRequestDTO)

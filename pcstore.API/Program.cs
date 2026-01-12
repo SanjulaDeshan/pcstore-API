@@ -73,6 +73,14 @@ builder.Services.AddScoped<IItemSpecificationRepository, SQLItemSpecificationRep
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowNextJS",
+        policy => policy.WithOrigins("http://localhost:3000") // Your Next.js URL
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Run migrations and seed data
@@ -115,6 +123,9 @@ using (var scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
+app.UseCors("AllowNextJS");
+
 app.UseAuthorization();
 
 app.MapControllers();

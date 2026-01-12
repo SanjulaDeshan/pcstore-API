@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  /* High-end Tech Palette */
+  --color-nanotek-yellow: #ffcc00;  /* The vibrant yellow you asked for */
+  --color-nanotek-orange: #ff9900;
+  --color-nanotek-dark: #121212;    /* Soft charcoal black */
+  --color-nanotek-black: #080808;   /* Deepest black */
+  --color-card-bg: rgba(20, 20, 20, 0.8);
+}
+
+:root {
+  --background: #080808;
+  --foreground: #ffffff;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', system-ui, sans-serif;
+  letter-spacing: -0.02em; /* Makes text look more premium */
+}
+
+/* Glassmorphism Effect for Cards */
+.glass-card {
+  background: var(--color-card-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Neon Glow Effect */
+.neon-shadow {
+  box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
+}
