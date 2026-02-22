@@ -31,7 +31,7 @@ namespace pcstore.API.Controllers
 		}
 
 		[AllowAnonymous]
-		[HttpGet("details")]
+		[HttpGet("all/details")]
 		public async Task<IActionResult> GetAllWithDetails()
 		{
 			var items = await itemRepository.GetAllWithDetailsAsync();
@@ -39,7 +39,19 @@ namespace pcstore.API.Controllers
 			return Ok(itemDtos);
 		}
 
-		[AllowAnonymous]
+        [AllowAnonymous]
+        [HttpGet("details/{id:Guid}")]
+        public async Task<IActionResult> GetItemWithDetails([FromRoute] Guid id)
+        {
+            var item = await itemRepository.GetAllWithDetailsAsync();
+            var specificItem = item.FirstOrDefault(x => x.Id == id);
+
+            if (specificItem == null) return NotFound();
+
+            return Ok(mapper.Map<ItemDetailedDto>(specificItem));
+        }
+
+        [AllowAnonymous]
 		[HttpGet("category/{categoryId:Guid}")]
 		public async Task<IActionResult> GetAllByCategoryId(
             [FromRoute] Guid categoryId,
