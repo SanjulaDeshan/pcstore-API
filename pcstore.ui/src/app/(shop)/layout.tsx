@@ -52,6 +52,8 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
           <div className="flex gap-8">
             <Link href="/" className="text-xs font-bold uppercase tracking-widest hover:text-nanotek-yellow transition-colors">Shop</Link>
             <Link href="/services" className="text-xs font-bold uppercase tracking-widest hover:text-nanotek-yellow transition-colors">Services</Link>
+            <Link href="/about" className="text-xs font-bold uppercase tracking-widest hover:text-nanotek-yellow transition-colors">About</Link>
+            <Link href="/contact" className="text-xs font-bold uppercase tracking-widest hover:text-nanotek-yellow transition-colors">Contact</Link>
           </div>
           <div className="flex items-center gap-6">
             <span className="text-xs font-bold text-gray-400">0777 292 272</span>
