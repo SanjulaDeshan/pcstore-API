@@ -1,6 +1,6 @@
 // src/app/(admin)/layout.tsx
 import Link from 'next/link';
-import { LayoutDashboard, Tags, ListTree, Package, LogOut } from 'lucide-react';
+import { LayoutDashboard, Tags, ListTree, Package, LogOut, Megaphone } from 'lucide-react';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
@@ -25,6 +25,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <Link href="/admin/dashboard" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 hover:text-white transition-colors group">
             <LayoutDashboard size={20} className="group-hover:text-nanotek-yellow transition-colors" />
             <span className="font-bold text-sm uppercase tracking-wider">Dashboard</span>
+          </Link>
+          <Link href="/admin/dashboard/ads" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 hover:text-white transition-colors group">
+            <Megaphone size={20} className="group-hover:text-nanotek-yellow transition-colors" />
+            <span className="font-bold text-sm uppercase tracking-wider">Advertisements</span>
           </Link>
           <Link href="/admin/dashboard/brands" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/5 text-gray-300 hover:text-white transition-colors group">
             <Tags size={20} className="group-hover:text-nanotek-yellow transition-colors" />

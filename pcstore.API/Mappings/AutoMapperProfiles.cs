@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using pcstore.API.Models.Domain;
 using pcstore.API.Models.DTO;
 
@@ -23,6 +23,10 @@ namespace pcstore.API.Mappings
 			CreateMap<ItemSpecification, ItemSpecificationDto>().ReverseMap();
 			CreateMap<AddItemSpecificationRequestDto, ItemSpecification>().ReverseMap();
 			CreateMap<UpdateItemSpecificationRequestDTO, ItemSpecification>().ReverseMap();
+
+			CreateMap<Advertisement, AdvertisementDto>().ReverseMap();
+			CreateMap<AddAdvertisementRequestDto, Advertisement>().ReverseMap();
+			CreateMap<UpdateAdvertisementRequestDto, Advertisement>().ReverseMap();
 
 			//CreateMap<Item, ItemDetailedDto>()
 			//	.ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))

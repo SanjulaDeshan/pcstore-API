@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import PriceRangeSlider from "@/components/PriceRangeSlider";
 import SidebarSearch from "@/components/SidebarSearch";
+import AddToCartButton from "@/components/shop/AddToCartButton";
 
 async function getBrandName(id: string) {
   const res = await fetch(`https://localhost:7297/api/Brand/${id}`, { cache: 'no-store' });
@@ -96,19 +97,27 @@ export default async function CategoryPage({ params, searchParams }: any) {
         <div className="flex-1 flex flex-col">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
             {items.map((item: any) => (
-              <Link href={`/product/${item.id}`} key={item.id} className="bg-[#111111] border border-white/5 group hover:border-nanotek-yellow/40 transition-all duration-500 flex flex-col h-full rounded-[2rem] overflow-hidden">
-                <div className="relative h-64 bg-white/[0.02] flex items-center justify-center p-8 overflow-hidden">
+              <div key={item.id} className="bg-[#111111] border border-white/5 group hover:border-nanotek-yellow/40 transition-all duration-500 flex flex-col h-full rounded-[2rem] overflow-hidden">
+                <Link href={`/product/${item.id}`} className="block relative h-64 bg-white/[0.02] flex items-center justify-center p-8 overflow-hidden">
                   <Image src={item.imageUrl || ""} alt={item.name} fill className="object-contain p-6 group-hover:scale-105 transition-transform duration-700" />
-                </div>
+                </Link>
                 <div className="p-6 flex-1 flex flex-col text-center">
-                  <h3 className="text-sm font-bold leading-tight text-white uppercase line-clamp-2 min-h-[40px] mb-2 group-hover:text-nanotek-yellow transition-colors">{item.name}</h3>
+                  <Link href={`/product/${item.id}`}>
+                    <h3 className="text-sm font-bold leading-tight text-white uppercase line-clamp-2 min-h-[40px] mb-2 group-hover:text-nanotek-yellow transition-colors">{item.name}</h3>
+                  </Link>
                   <p className="text-[10px] font-black text-gray-600 uppercase tracking-[0.2em] mb-4 italic">- {items[0]?.category?.name} -</p>
-                  <div className="mt-auto">
-                    <span className="text-2xl font-black text-white block mb-4">{item.price} LKR</span>
-                    <div className="inline-block border border-nanotek-yellow/40 px-4 py-1 rounded text-[10px] font-bold text-nanotek-yellow uppercase tracking-tighter">{item.availability || "In Stock"}</div>
+                  <div className="mt-auto space-y-4">
+                    <div>
+                      <span className="text-2xl font-black text-white block mb-1">{item.price} LKR</span>
+                      <div className="inline-block border border-nanotek-yellow/40 px-4 py-1 rounded text-[10px] font-bold text-nanotek-yellow uppercase tracking-tighter">{item.availability || "In Stock"}</div>
+                    </div>
+                    
+                    <div className="pt-2 border-t border-white/5">
+                      <AddToCartButton item={item} />
+                    </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
 

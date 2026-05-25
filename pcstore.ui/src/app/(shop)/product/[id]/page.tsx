@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import AddToCartButton from "@/components/shop/AddToCartButton";
 
 async function getProductDetails(id: string) {
   // Base URL should be your environment variable in production
@@ -68,9 +69,9 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             
             {/* Bottom Action Section (Compact Layout) */}
             <div className="mt-10">
-              <button className="w-full h-16 bg-nanotek-yellow text-black font-black uppercase tracking-widest rounded-2xl hover:scale-[1.03] transition-all shadow-[0_10px_30px_rgba(255,204,0,0.15)] active:scale-95 mb-8">
-                Add to Cart
-              </button>
+              <div className="mb-8">
+                <AddToCartButton item={product} />
+              </div>
 
               {/* New Payment Methods Section */}
               <div className="space-y-3">

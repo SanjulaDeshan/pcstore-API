@@ -1,4 +1,4 @@
-﻿using login.api.Models.Domain;
+using login.api.Models.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using pcstore.API.Models.Domain;
@@ -17,6 +17,7 @@ namespace pcstore.API.Data
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemSpecification> ItemsSpecifications { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<Advertisement> Advertisements { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

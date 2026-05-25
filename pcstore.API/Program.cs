@@ -70,6 +70,7 @@ builder.Services.AddScoped<ICategoryRepository, SQLCategoryRepository>();
 builder.Services.AddScoped<IBrandRepository, SQLBrandRepository>();
 builder.Services.AddScoped<IItemRepository, SQLItemRepository>();
 builder.Services.AddScoped<IItemSpecificationRepository, SQLItemSpecificationRepository>();
+builder.Services.AddScoped<IAdvertisementRepository, SQLAdvertisementRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 

@@ -4,6 +4,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import CartIcon from "@/components/shop/CartIcon";
 
 // Server Component එකේ තිබුණු fetch එක Client එකේ පාවිච්චි කරන විදිහට වෙනස් කරමු
 async function getCategories() {
@@ -101,10 +102,7 @@ export default function ShopLayout({ children }: { children: React.ReactNode }) 
             </button>
 
             <span className="hidden sm:inline text-xs font-bold text-gray-400">0777 292 272</span>
-            
-            <div className="h-10 px-4 lg:px-6 rounded-full bg-nanotek-yellow text-black flex items-center gap-2 font-black text-xs lg:text-sm cursor-pointer hover:scale-105 transition-transform">
-              🛒 <span className="hidden xs:inline">0 LKR</span>
-            </div>
+            <CartIcon />
           </div>
 
           {/* 4. Mobile Main Navigation Dropdown */}
