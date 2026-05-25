@@ -7,7 +7,7 @@ export async function loginAdmin(formData: FormData) {
   const username = formData.get('username');
   const password = formData.get('password');
 
-  const res = await fetch("https://localhost:7000/api/Auth/login", {
+  const res = await fetch("https://localhost:7297/api/Auth/login", {
     method: "POST",
     body: JSON.stringify({ username, password }),
     headers: { "Content-Type": "application/json" }

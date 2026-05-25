@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -70,7 +70,7 @@ namespace pcstore.API.Controllers
 			var itemDtos = mapper.Map<List<ItemDetailedDto>>(items);
             var totalItems = await itemRepository.GetCountByCategoryIdAsync(categoryId, brand, minPrice, maxPrice, search, availability);
 
-            var prices = items.Select(x => decimal.Parse(x.Price.Replace(",", "").Trim()));
+            var prices = items.Select(x => decimal.Parse(x.Price.Replace(",", "").Replace(" ", "").Trim()));
             var categoryMin = prices.Any() ? prices.Min() : 0;
             var categoryMax = prices.Any() ? prices.Max() : 1000000;
 
