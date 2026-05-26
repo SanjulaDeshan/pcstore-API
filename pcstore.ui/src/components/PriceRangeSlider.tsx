@@ -21,11 +21,14 @@ export default function PriceRangeSlider({ minBound, maxBound, currentMin, curre
 
   // Sync with URL only if the user isn't currently dragging
   useEffect(() => {
+    const urlMin = searchParams.get('minPrice');
+    const urlMax = searchParams.get('maxPrice');
+    
     setValues([
-      Number(searchParams.get('minPrice')) || safeMin,
-      Number(searchParams.get('maxPrice')) || safeMax
+      urlMin ? Number(urlMin) : safeMin,
+      urlMax ? Number(urlMax) : safeMax
     ]);
-  }, [searchParams, safeMin, safeMax]);
+  }, [searchParams.get('minPrice'), searchParams.get('maxPrice')]);
 
   // Update numbers on screen instantly while moving
   const handleValueChange = (newValues: number[]) => {

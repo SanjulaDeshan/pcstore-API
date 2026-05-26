@@ -55,8 +55,8 @@ export default async function CategoryPage({ params, searchParams }: any) {
           <div className="bg-[#1a1a1a] border border-white/5 rounded-2xl p-6">
             <h3 className="text-xs font-black uppercase text-nanotek-yellow mb-6 italic tracking-widest">Price Filter</h3>
             <PriceRangeSlider 
-              minBound={result.categoryMinPrice} 
-              maxBound={result.categoryMaxPrice} 
+              minBound={0} 
+              maxBound={1500000} 
               currentMin={filters.min} 
               currentMax={filters.max} 
             />
