@@ -48,8 +48,8 @@ export default async function CategoryPage({ params, searchParams }: any) {
         {items[0]?.category?.name} <span className="text-nanotek-yellow">LINEUP</span>
       </h1>
 
-      <div className="flex flex-col lg:flex-row gap-0">
-        <aside className="w-full lg:w-80 flex-shrink-0 pr-10 space-y-6">
+      <div className="flex flex-col lg:flex-row gap-10 lg:gap-0">
+        <aside className="w-full lg:w-80 flex-shrink-0 pr-0 lg:pr-10 space-y-6">
           <SidebarSearch />
 
           <div className="bg-[#1a1a1a] border border-white/5 rounded-2xl p-6">

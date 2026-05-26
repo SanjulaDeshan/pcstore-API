@@ -25,3 +25,8 @@ export async function loginAdmin(formData: FormData) {
     redirect("/admin/dashboard");
   }
 }
+
+export async function logoutAdmin() {
+  (await cookies()).delete('admin_token');
+  redirect('/admin/login');
+}
