@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -50,9 +50,9 @@ namespace pcstore.API.Controllers
 		public async Task<IActionResult> Create([FromBody] AddItemSpecificationRequestDto addItemSpecificationRequestDto)
 		{
 			var allItemsSpecification = await itemSpecificationRepository.GetAllAsync();
-			if (allItemsSpecification.Any(x => x.Name.Equals(addItemSpecificationRequestDto.Name, StringComparison.OrdinalIgnoreCase)))
+			if (allItemsSpecification.Any(x => x.Name.Equals(addItemSpecificationRequestDto.Name, StringComparison.OrdinalIgnoreCase) && x.ItemId == addItemSpecificationRequestDto.ItemId))
 			{
-				return BadRequest("Item specification name already exists.");
+				return BadRequest("Item specification name already exists for this item.");
 			}
 
 			var itemSpecificationDomainModel = mapper.Map<ItemSpecification>(addItemSpecificationRequestDto);
@@ -85,9 +85,9 @@ namespace pcstore.API.Controllers
 		public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateItemSpecificationRequestDTO updateItemSpecificationRequestDTO)
 		{
 			var allItemSpecification = await itemSpecificationRepository.GetAllAsync();
-			if (allItemSpecification.Any(x => x.Name.Equals(updateItemSpecificationRequestDTO.Name, StringComparison.OrdinalIgnoreCase) && x.Id != id))
+			if (allItemSpecification.Any(x => x.Name.Equals(updateItemSpecificationRequestDTO.Name, StringComparison.OrdinalIgnoreCase) && x.ItemId == updateItemSpecificationRequestDTO.ItemId && x.Id != id))
 			{
-				return BadRequest("Item Specification name already exists.");
+				return BadRequest("Item Specification name already exists for this item.");
 			}
 
 			var itemSpecificationDomainModel = mapper.Map<ItemSpecification>(updateItemSpecificationRequestDTO);
